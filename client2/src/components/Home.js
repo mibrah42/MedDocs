@@ -1,8 +1,6 @@
 import React from 'react';
-import bannerImage from './images/records.jpg';
-import Button from '@material-ui/core/Button';
-import './style/Home.css';
-import {Link} from 'react-router-dom';
+import bannerImage from '../images/records.jpg';
+import './styles/Home.css';
 
 class Home extends React.Component {
 	static propTypes = {
@@ -22,24 +20,18 @@ render() {
 	const contentStyle = {
 		display: 'flex'
 	};
-	const buttonStyle= {
-		marginTop: '15px'
-	};
 
 	return (
 		<div>	
 			<div className="banner" style={style}>
-				<div className="content-header text-center" style={contentStyle}>	
+				<div className="content-header text-left" style={contentStyle}>	
 					<div className="left-content">
 						<h1 id="title"> MedDocs </h1>
 						<h3 id="subtitle"> Keep your medical reords secure and accessible</h3>
-						<Link to="/hospitals" style={{textDecoration: "none"}}>
-						  <Button variant="contained" className="default" style={buttonStyle}>
-       						 Explore Hospitals
-      					  </Button>
-      					  </Link>
 					</div>
-
+					<div className="signIns"> 
+						<SignIn title="Doctor" background="#dfe6e9" login={this.props.isLoggedIn} />
+					</div>
 				</div>
 			</div>
 

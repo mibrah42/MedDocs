@@ -1,32 +1,36 @@
 import React, { Component } from 'react';
-import { Switch, Route, Link, NavLink } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import Home from './components/Home';
-import SignUp from './components/SignUp';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import './App.css';
+import Hospitals from './components/Hospitals';
+import Doctors from './components/Doctors';
+import Patients from './components/Patients';
+import Timeline from './components/Timeline';
+import AddPatient from './components/AddPatient';
+import AddVisit from './components/AddVisit';
 
-const RegisterUser = (props) => {
-
-  return (
-    <SignUp title={props.type} background="white" />
-  );
-}
+import { Switch, Route, Link } from 'react-router-dom';
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <div className="App">
         <Navbar />
         <Switch>
-          <Route path="/" exact component={Home}/>
-          <Route path="/doctorsignup" exact component={() => <RegisterUser type="Doctor" />}/>
-          <Route path="/patientsignup" exact render={() => <RegisterUser type="Patient" />}/>
+          <Route exact path="/hospitals/:hospital_id/doctors/:doctor_id/patients/:patient_id/new" component={AddVisit} />
+          <Route exact path="/hospitals/:hospital_id/doctors/:doctor_id/patients/new" component={AddPatient} />
+          <Route exact path="/hospitals/:hospital_id/doctors/:doctor_id/patients/:patient_id" component={Timeline} />
+          <Route exact path="/hospitals/:hospital_id/doctors/:doctor_id/patients" component={Patients} />
+          <Route exact path="/hospitals/:hospital_id/doctors" component={Doctors} />
+          <Route exact path="/hospitals" component={Hospitals} />
+          <Route exact path="/" component={Home} />
         </Switch>
-        <Footer />
+        <Footer/>
       </div>
       );
-    }
   }
+}
 
 export default App;
+

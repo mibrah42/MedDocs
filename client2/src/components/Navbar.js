@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import './style/Navbar.css';
+import './styles/Navbar.css';
 
 export default class Navbar extends React.Component {
   static propTypes = {
@@ -17,9 +17,9 @@ export default class Navbar extends React.Component {
 			<li className="nav-item">
 				<Link to="/" className="nav-link active custom-nav"> Home </Link>
 			</li>
-      <li className="nav-item">
-        <Link to="/hospitals" className="nav-link active custom-nav"> Hospitals </Link>
-      </li>
+			<li className="nav-item">
+				<a> Hello</a>
+			</li>
 		</ul>
 		</nav>
       </div>

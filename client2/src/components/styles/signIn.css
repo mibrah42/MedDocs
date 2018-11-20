@@ -1,12 +1,13 @@
 .wrapper {
-	height: 400px;
+	height: 300px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	text-align: center;
 	background-color: blue;
 	flex-grow: 1;
-	min-width: 370px;
+	border-radius: 5px;
+	padding: 30px;
 }
 
 .login-form input{

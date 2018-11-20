@@ -21,6 +21,14 @@
 	font-family: Roboto, "Open Sans", Helvetica, sans-serif;
 }
 
+.content-header {
+	display: flex;
+	align-items: center;
+}
+.left-content {
+	margin-right: 20px;
+}
+
 .signIns {
 	display: flex;
 	flex-wrap: wrap;

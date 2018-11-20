@@ -1,0 +1,8 @@
+.custom-nav {
+	color: white;
+}
+
+.custom-nav:hover {
+	color: white;
+	opacity: 0.7;
+}
