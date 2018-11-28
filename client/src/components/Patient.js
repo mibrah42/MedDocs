@@ -6,7 +6,7 @@ const Patient = (props) => {
 	const {id, fname, lname, email, image, hospitalId, doctorId} = props;
 	const cardStyle = {
 		width: "18rem",
-		height: "320px",
+		height: "360px",
 		background: "#ecf0f1",
 		boxShadow: "2px 2px 10px -5px rgba(0,0,0,0.75)",
 		textShadow: "none",
@@ -14,8 +14,8 @@ const Patient = (props) => {
 		marginTop: "30px"
 	}
 	const imageStyle = {
-		height: "160px",
-		backgroundPosition: "center",
+		height: "200px",
+		backgroundPosition: "top",
 		backgroundSize: "cover",
 		width: "100%",
 		backgroundImage: `url(${image})`

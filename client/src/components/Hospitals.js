@@ -6,46 +6,66 @@ import './style/Home.css';
 import {Link} from 'react-router-dom';
 
 class Hospitals extends React.Component {
-	static propTypes = {
-    // name: React.PropTypes.string,
-};
 
 constructor(props) {
 	super(props);
 	this.state = {
 		hospitals: []
 	}
+this.handleFilter = this.handleFilter.bind(this);
+this.loadAllHospitals = this.loadAllHospitals.bind(this);
 }
 
 componentWillMount() {
-	var proxyUrl = 'https://cors-anywhere.herokuapp.com/',
-    targetUrl = 'http://localhost:3003/hospitals';
-	fetch(proxyUrl + targetUrl)
-      .then(response => {
-        console.log(response);
-        response.json();
-      })
+	this.loadAllHospitals();
+}
+
+loadAllHospitals() {
+	fetch("/hospitals")
+      .then(response => response.json())
       .then((data) => { 
-        console.log(data);
-        // this.setState({ hospitals }); 
+        this.setState({ hospitals: data }); 
       })
       .catch((err) => {
       	console.log(err);
       })
-	
 }
 
+handleFilter(e) {
+	if(e.target.value === "all") {
+		this.loadAllHospitals();
+		return;
+	}
+	fetch(`/hospitals/location/${e.target.value.toLowerCase()}`)
+      .then(response => response.json())
+      .then((data) => { 
+        this.setState({ hospitals: data }); 
+      })
+      .catch((err) => {
+      	console.log(err);
+      })
+}
 
 render() {
 	return (
-		<div className="wrapper" style={{minHeight: "calc(100vh - 150px)", padding: "50px"}}>
-			<div className="container">
+		<div className="wrapper" style={{minHeight: "calc(100vh - 150px)"}}>
+			<div className="container" style={{padding: '20px', marginTop: '30px'}}>
+				<div style={{marginRight: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
 				<h1 style={{marginLeft: '20px'}}>Hospitals</h1>
+				<select style={{width: '300px'}}
+						className="form-control"
+						onChange={(e) => this.handleFilter(e)}>
+					<option value="" disabled selected>Filter By Location</option>
+					<option value="all">All</option>
+					<option value="usa">USA</option>
+					<option value="canada">Canada</option>
+				</select>
+				</div>
 				<div className="row">
 					{
-						this.state.hospitals.map(hospital => {
+						this.state.hospitals.map((hospital, i) => {
 							return (<div className="col-xs-12 col-sm-4">
-										<Hospital key={hospital.Hospital_ID}
+										<Hospital key={i}
 												  id={hospital.Hospital_ID}
 												  name={hospital.Hospital_Name}
 												  address={hospital.Hospital_Address}

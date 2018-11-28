@@ -10,9 +10,9 @@ const Hospital = (props) => {
 	}
 	return (
 		<Link to={`/hospitals/${id}/doctors`} >
-		<div class="card" style={cardStyle}>
-		  <div class="card-category">Popular</div>
-		  <div class="card-description">
+		<div className="card" style={cardStyle}>
+		  <div className="card-category">Popular</div>
+		  <div className="card-description">
 		    <h2>{name}</h2>
 		    <p>{address}</p>
 		  </div>

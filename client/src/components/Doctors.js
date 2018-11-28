@@ -6,44 +6,64 @@ import {Link,Route, NavLink, Redirect} from 'react-router-dom';
 import Doctor from './Doctor';
 
 class Doctors extends React.Component {
-	static propTypes = {
-    // name: React.PropTypes.string,
-};
-
+	
 constructor(props) {
 	super(props);
 	this.state = {
-		doctors: [
-			{
-				id: "1234",
-				fname: "Steven",
-				lname: "strange",
-				image: "https://drive.google.com/file/d/1tuunpW0e4h-UoG89tIDWGaYC5RSUDHLp",
-				speciality: "surgeon"
-			},
-			{
-				id: "1234",
-				fname: "Steven",
-				lname: "strange",
-				image: "https://media.comicbook.com/2016/10/doctor-strange-1-204810-1280x0.jpg",
-				speciality: "surgeon"
-			},
-			{
-				id: "1234",
-				fname: "Steven",
-				lname: "strange",
-				image: "https://media.comicbook.com/2016/10/doctor-strange-1-204810-1280x0.jpg",
-				speciality: "surgeon"
-			},
-			{
-				id: "1234",
-				fname: "Steven",
-				lname: "strange",
-				image: "https://media.comicbook.com/2016/10/doctor-strange-1-204810-1280x0.jpg",
-				speciality: "surgeon"
-			}
-		]
+		doctors: [],
+		specialties: []
 	}
+	this.handleFilterSpecialty = this.handleFilterSpecialty.bind(this);
+	this.loadAllDoctors = this.loadAllDoctors.bind(this);
+	this.loadSpecialties = this.loadSpecialties.bind(this);
+}
+
+componentWillMount() {
+	this.loadAllDoctors();
+	this.loadSpecialties();
+}
+loadAllDoctors(){
+	const {match} = this.props;
+	fetch(`/hospital/${match.params.hospital_id}/doctors`)
+      .then(response => response.json())
+      .then((doctors) => { 
+        this.setState({ doctors }); 
+      })
+      .catch((err) => {
+      	console.log(err);
+      })
+}
+
+loadSpecialties() {
+	fetch(`/doctors/specialties`)
+      .then(response => response.json())
+      .then((specialties) => { 
+        this.setState({ specialties }); 
+        console.log(specialties)
+      })
+      .catch((err) => {
+      	console.log(err);
+      })
+}
+
+handleFilterSpecialty(e) {
+	console.log("hello");
+	if(e.target.value === 'all') {
+		this.loadAllDoctors();
+		return;
+	}
+	console.log("hello");
+	const {match} = this.props;
+	fetch(`/hospital/${match.params.hospital_id}/doctors/specialty/${e.target.value}`)
+      .then(response => response.json())
+      .then((doctors) => { 
+      	console.log(doctors)
+        this.setState({ doctors }); 
+      })
+      .catch((err) => {
+      	console.log(err);
+      })
+
 }
 
 
@@ -51,19 +71,45 @@ render() {
 	const {match} = this.props;
 	return (
 		<div className="wrapper" style={{minHeight: "calc(100vh - 150px)", padding: "50px"}}>
+			<Link to={`/hospitals`} style={{textDecoration: "none", float: 'left'}}>
+				<Button variant="extendedFab" 
+						className="primary"
+						style={{ boxShadow: "2px 4px 10px -5px rgba(0,0,0,0.75)"}}>
+   				Back to hospitals
+  			 	</Button>
+			</Link>
 			<div className="container">
+			<div style={{marginRight: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
 			<h1>Doctors</h1>
+			<select style={{width: '300px', marginRight: '30px'}}
+						className="form-control"
+						onChange={(e) => this.handleFilterSpecialty(e)}>
+						<option value="" disabled selected>Filter By Speciality</option>
+						<option value="all">All</option>
+						{
+							this.state.specialties.map(speciality => {
+								return (<option value={speciality.Speciality}>
+										{speciality.Speciality}
+									</option>)
+	      					})
+						}
+			</select>
+			</div>
+
 				<div className="row">
-					{
+					
+				{
 						this.state.doctors.map(doctor => {
 							return (<div className="col-xs-12 col-sm-4">
 										<Doctor key={doctor.id}
-												  id={doctor.id}
-												  fname={doctor.fname}
-												  lname={doctor.lname}
+												  id={doctor.Doc_ID}
+												  fname={doctor.Doc_F_Name}
+												  lname={doctor.Doc_L_Name}
 												  hospitalId={match.params.hospital_id}
-												  image={doctor.image} 
-												  speciality={doctor.speciality}
+												  image={doctor.Profile_IMG} 
+												  speciality={doctor.Speciality}
+												  email={doctor.Doc_Email}
+												  Phone_Num={doctor.Doc_Email}
 												  />
 									</div>)
 						})

@@ -16,16 +16,16 @@ const Doctor = (props) => {
 	}
 	const imageStyle = {
 		height: "160px",
-		backgroundPosition: "center",
+		backgroundPosition: "top",
 		backgroundSize: "cover",
 		width: "100%",
 		backgroundImage: `url(${image})`
 	}
 	return (
-		<div class="card text-center" style={cardStyle}>
+		<div className="card text-center" style={cardStyle}>
 		    <div style={imageStyle}> </div>
-		    <h5 class="card-title" style={{marginTop: '10px'}}>{fname} {lname}</h5>
-		    <p class="card-text">{speciality}</p>
+		    <h5 className="card-title" style={{marginTop: '10px'}}>{fname} {lname}</h5>
+		    <p className="card-text">{speciality}</p>
 		    <Link to={`/hospitals/${hospitalId}/doctors/${id}/patients`} style={{textDecoration: "none"}}>
 				<Button variant="contained" className="primary">
    				See Patients
