@@ -24,7 +24,7 @@ export default class AddVisit extends React.Component {
 	}
 
 	componentWillMount() {
-	const url = "APIMEDIC_URL"
+	const url = "YOUR_API_KEY"
 	const {match} = this.props;
 	fetch(`/patients`)
       .then(response => response.json())

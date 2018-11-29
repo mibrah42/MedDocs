@@ -63,8 +63,8 @@ app.get("/doctors", (req, res) => {
 
 app.get("/hospital/:id/doctors", (req, res) => {
 	const queryString = `SELECT * 
-	FROM doctor
-	WHERE Hospital_ID=?`;
+						 FROM doctor
+						 WHERE Hospital_ID=?`;
 	connection.query(queryString, [req.params.id], (err, rows, fields) => {
 		if (err) {
 			console.log("failed to query: " + err);
@@ -176,8 +176,8 @@ app.get("/doctors/:id/visits", (req, res) => {
 
 app.get("/doctors/:id/patients", (req, res) => {
 	const queryString = `SELECT p.* 
-	FROM patient p, visit v 
-	WHERE p.Id=v.Patient_id && v.Doctor_id=?`;
+						 FROM patient p, visit v 
+	    			     WHERE p.Id=v.Patient_id && v.Doctor_id=?`;
 	connection.query(queryString,[req.params.id], (err, rows, fields) => {
 		if (err) {
 			console.log("failed to query: " + err);
